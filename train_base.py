@@ -38,7 +38,7 @@ def main():
     args = parser().parse_args()
 
     # load configurations
-    cfg = YAML().load(open("/home/pawel/agile_flight/envtest/python/configs/first_2_easy.yaml"))
+    cfg = YAML().load(open("/home/pawel/agh_code/configs/first_2_easy.yaml"))
 
     if not args.train:
         cfg["simulation"]["num_envs"] = 1
@@ -95,17 +95,13 @@ def main():
         )
 
         #
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
-        configure_random_seed(random.randint(0, 150), env=train_env)
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
-        configure_random_seed(random.randint(0, 150), env=train_env)
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
-        configure_random_seed(random.randint(0, 150), env=train_env)
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
-        configure_random_seed(random.randint(0, 150), env=train_env)
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
-        configure_random_seed(random.randint(0, 150), env=train_env)
-        model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
+        for i in range(10):
+            model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
+            seed = random.randint(0, 150)
+            print("SEED: ", seed)
+            configure_random_seed(seed, env=train_env)
+            model.learn(total_timesteps=int(3 * 1e7), log_interval=(10, 50))
+
 
         # model.set_env()
     else:
